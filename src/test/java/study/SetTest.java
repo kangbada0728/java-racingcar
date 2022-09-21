@@ -28,19 +28,20 @@ public class SetTest {
     @Test
     @DisplayName("Set의 size 메서드 학습 테스트")
     void sizeTest() {
-        assertThat(numbers).hasSize(3);
+        assertThat(numbers.size()).isEqualTo(3);
     }
 
-    @Test
-    @DisplayName("Set의 contains 메서드 학습 테스트")
-    void containsTest() {
+    @ParameterizedTest(name = "Set의 contains 메서드 학습 테스트")
+    @ValueSource(ints = {1, 2, 3})
+    void containsTest(int input) {
         assertThat(numbers).contains(1, 2, 3);
     }
 
     @ParameterizedTest(name = "@ParameterizedTest와 @CsvSource 학습 테스트")
     @CsvSource(value = {"1:true", "2:true", "3:true", "4:false", "5:false"}, delimiter = ':')
-    void name(int input, boolean result) {
+    void name(String arg1, String arg2) {
+        int input = Integer.parseInt(arg1);
+        boolean result = Boolean.parseBoolean(arg2);
         assertThat(numbers.contains(input)).isEqualTo(result);
     }
-
 }
